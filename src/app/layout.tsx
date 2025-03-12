@@ -1,13 +1,26 @@
 import './globals.css';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Toaster } from 'react-hot-toast';
-import ErrorBoundary from '@/components/ErrorBoundary';
+import Providers from '@/components/Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  title: 'Admin Dashboard',
-  description: 'Secure admin dashboard for managing content',
+export const metadata: Metadata = {
+  metadataBase: new URL('https://hk-site.com'),
+  title: 'HK Communities - Solutions Innovantes Informatiques',
+  description: 'Developpe ton business en la digitalisant et en investissant dans sa securite en ligne.',
+  keywords: ['technology', 'innovation', 'business solutions', 'digital transformation'],
+  openGraph: {
+    title: 'HK Communities - Solutions Innovantes Informatiques',
+    description: 'Developpe ton business en la digitalisant et en investissant dans sa securite en ligne.',
+    images: ['/og-image.png']
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'HK Communities - Solutions Innovantes Informatiques',
+    description: 'Developpe ton business en la digitalisant et en investissant dans sa securite en ligne.',
+    images: ['/og-image.png']
+  }
 };
 
 export default function RootLayout({
@@ -16,13 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="fr" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      </head>
       <body className={inter.className}>
-        <ErrorBoundary>
-          <Toaster position="top-right" />
-          {children}
-        </ErrorBoundary>
+        <Providers>
+          <main className="antialiased bg-[#020617] text-white min-h-screen">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );
-} 
+}

@@ -1,26 +1,52 @@
+'use client';
+
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Header from '../components/Header';
 import Hero from '@/components/Hero';
-import Services from '@/components/Services';
-import Blog from '@/components/Blog';
-import Contact from '@/components/Contact';
-import Stats from '@/components/Stats';
-import Features from '@/components/Features';
-import Partners from '@/components/Partners';
-import Testimonials from '@/components/Testimonials';
+import LoadingSpinner from '@/components/LoadingSpinner';
+
+const DynamicStats = dynamic(() => import('@/components/Stats'), { 
+  loading: () => <LoadingSpinner />,
+  ssr: true
+});
+
+const DynamicFeatures = dynamic(() => import('@/components/Features'), { 
+  loading: () => <LoadingSpinner />,
+  ssr: true
+});
+
+const DynamicServices = dynamic(() => import('@/components/Services'), { 
+  loading: () => <LoadingSpinner />,
+  ssr: true
+});
+
+const DynamicPartners = dynamic(() => import('@/components/Partners'), { 
+  loading: () => <LoadingSpinner />,
+  ssr: true
+});
+
+const DynamicTestimonials = dynamic(() => import('@/components/Testimonials'), { 
+  loading: () => <LoadingSpinner />,
+  ssr: true
+});
+
+const DynamicContact = dynamic(() => import('@/components/Contact'), { 
+  loading: () => <LoadingSpinner />,
+  ssr: true
+});
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#020617]">
+    <main className="min-h-screen bg-[#020617] overflow-x-hidden">
       <Header />
       <Hero />
-      <Stats />
-      <Features />
-      <Services />
-      <Partners />
-      <Testimonials />
-      <Blog />
-      <Contact />
+      <DynamicStats />
+      <DynamicFeatures />
+      <DynamicServices />
+      <DynamicPartners />
+      <DynamicTestimonials />
+      <DynamicContact />
     </main>
   );
-} 
+}

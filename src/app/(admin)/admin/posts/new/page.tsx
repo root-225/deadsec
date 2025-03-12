@@ -2,147 +2,205 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Editor from '@/components/admin/Editor';
+import MediaLibrary from '@/components/admin/MediaLibrary';
+import ContentPreview from '@/components/admin/ContentPreview';
 
 export default function NewPostPage() {
   const router = useRouter();
+  const [selectedLanguage, setSelectedLanguage] = useState<'en' | 'fr'>('en');
+  const [showMediaLibrary, setShowMediaLibrary] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [formData, setFormData] = useState({
-    title: '',
+    title: { en: '', fr: '' },
+    content: { en: '', fr: '' },
     slug: '',
-    content: '',
-    status: 'draft' as 'draft' | 'published',
-    author: '',
-    tags: '',
+    imageUrl: '',
+    isPublished: false
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your API
-    console.log('Form submitted:', formData);
-    router.push('/admin/posts');
-  };
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const title = e.target.value;
-    setFormData({
-      ...formData,
-      title,
-      slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-    });
+    try {
+      const response = await fetch('/api/admin/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) throw new Error('Failed to create post');
+      router.push('/admin/posts');
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-white">New Post</h1>
-        <button
-          onClick={() => router.back()}
-          className="px-4 py-2 text-slate-400 hover:text-white transition-colors"
-        >
-          Cancel
-        </button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto py-8 px-4">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold">Create New Post</h1>
+          <div className="flex items-center space-x-4">
+            <select
+              value={selectedLanguage}
+              onChange={(e) => setSelectedLanguage(e.target.value as 'en' | 'fr')}
+              className="rounded-md border border-gray-300 px-3 py-2"
+            >
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+            </select>
+            <button
+              type="button"
+              onClick={() => setShowPreview(!showPreview)}
+              className="px-4 py-2 text-blue-600 hover:text-blue-800"
+            >
+              {showPreview ? 'Edit' : 'Preview'}
+            </button>
+          </div>
+        </div>
+
+        {showPreview ? (
+          <ContentPreview
+            title={formData.title}
+            content={formData.content}
+            imageUrl={formData.imageUrl}
+            selectedLanguage={selectedLanguage}
+          />
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-lg shadow p-6">
+            <div>
+              <label htmlFor="title" className="block text-sm font-medium mb-1">
+                Title ({selectedLanguage.toUpperCase()})
+              </label>
+              <input
+                type="text"
+                id="title"
+                value={formData.title[selectedLanguage]}
+                onChange={(e) => setFormData(prev => ({
+                  ...prev,
+                  title: {
+                    ...prev.title,
+                    [selectedLanguage]: e.target.value
+                  },
+                  slug: selectedLanguage === 'en' 
+                    ? e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+                    : prev.slug
+                }))}
+                className="w-full rounded-md border border-gray-300 px-3 py-2"
+                required={selectedLanguage === 'en'}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Content ({selectedLanguage.toUpperCase()})
+              </label>
+              <Editor
+                value={formData.content[selectedLanguage]}
+                onChange={(value) => setFormData(prev => ({
+                  ...prev,
+                  content: {
+                    ...prev.content,
+                    [selectedLanguage]: value
+                  }
+                }))}
+                placeholder={`Write your post content in ${
+                  selectedLanguage === 'en' ? 'English' : 'French'
+                }...`}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Featured Image
+              </label>
+              <div className="flex items-start space-x-4">
+                <button
+                  type="button"
+                  onClick={() => setShowMediaLibrary(true)}
+                  className="flex-1 px-4 py-2 border-2 border-dashed border-gray-300 rounded-md text-gray-600 hover:text-gray-900 hover:border-gray-400"
+                >
+                  {formData.imageUrl ? 'Change Image' : 'Select Image'}
+                </button>
+                {formData.imageUrl && (
+                  <div className="relative w-32 h-32">
+                    <Image
+                      src={formData.imageUrl}
+                      alt="Preview"
+                      fill
+                      className="object-cover rounded-md"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ 
+                        ...prev, 
+                        imageUrl: '' 
+                      }))}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
+                    >
+                      ×
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={formData.isPublished}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    isPublished: e.target.checked
+                  }))}
+                  className="rounded border-gray-300"
+                />
+                <span className="ml-2 text-sm">Publish immediately</span>
+              </label>
+            </div>
+
+            <div className="flex justify-end space-x-4 pt-4">
+              <button
+                type="button"
+                onClick={() => router.back()}
+                className="px-4 py-2 text-gray-600 hover:text-gray-900"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Create Post
+              </button>
+            </div>
+          </form>
+        )}
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium text-white">
-            Title
-          </label>
-          <input
-            type="text"
-            id="title"
-            value={formData.title}
-            onChange={handleTitleChange}
-            className="mt-1 block w-full rounded-md bg-slate-700 border-slate-600 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            required
-          />
+      {showMediaLibrary && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-h-[90vh] overflow-y-auto">
+            <MediaLibrary 
+              onSelect={(url) => {
+                setFormData(prev => ({ ...prev, imageUrl: url }));
+                setShowMediaLibrary(false);
+              }} 
+              isModal={true} 
+            />
+            <div className="p-4 border-t">
+              <button
+                type="button"
+                onClick={() => setShowMediaLibrary(false)}
+                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
-
-        <div>
-          <label htmlFor="slug" className="block text-sm font-medium text-white">
-            Slug
-          </label>
-          <input
-            type="text"
-            id="slug"
-            value={formData.slug}
-            onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-            className="mt-1 block w-full rounded-md bg-slate-700 border-slate-600 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="content" className="block text-sm font-medium text-white">
-            Content
-          </label>
-          <textarea
-            id="content"
-            rows={10}
-            value={formData.content}
-            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-            className="mt-1 block w-full rounded-md bg-slate-700 border-slate-600 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="author" className="block text-sm font-medium text-white">
-            Author
-          </label>
-          <input
-            type="text"
-            id="author"
-            value={formData.author}
-            onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-            className="mt-1 block w-full rounded-md bg-slate-700 border-slate-600 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="tags" className="block text-sm font-medium text-white">
-            Tags (comma-separated)
-          </label>
-          <input
-            type="text"
-            id="tags"
-            value={formData.tags}
-            onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-            className="mt-1 block w-full rounded-md bg-slate-700 border-slate-600 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="status" className="block text-sm font-medium text-white">
-            Status
-          </label>
-          <select
-            id="status"
-            value={formData.status}
-            onChange={(e) => setFormData({ ...formData, status: e.target.value as 'draft' | 'published' })}
-            className="mt-1 block w-full rounded-md bg-slate-700 border-slate-600 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          >
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
-        </div>
-
-        <div className="flex justify-end space-x-4">
-          <button
-            type="button"
-            onClick={() => router.back()}
-            className="px-4 py-2 text-slate-400 hover:text-white transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-md text-white font-medium hover:opacity-90 transition-opacity"
-          >
-            Save Post
-          </button>
-        </div>
-      </form>
+      )}
     </div>
   );
-} 
+}
