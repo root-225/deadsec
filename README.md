@@ -1,126 +1,74 @@
-# Admin Dashboard
+# HK Site - Next.js Admin Dashboard
 
-A secure admin dashboard built with Next.js 14, TypeScript, and Tailwind CSS.
+## Overview
+This is a full-featured admin dashboard built with Next.js 14, Prisma, and Tailwind CSS, featuring secure authentication and admin panel functionality.
 
 ## Features
+- Secure admin login system
+- JWT-based authentication
+- Responsive design with Tailwind CSS
+- Admin dashboard with metrics
+- SQLite database with Prisma ORM
 
-- 🔐 Secure Authentication
-- 📊 Admin Dashboard
-- 🚀 Fast Performance
-- 🎨 Modern UI/UX
-- 📱 Responsive Design
+## Prerequisites
+- Node.js (v18 or later)
+- npm
 
-## Getting Started
+## Setup Instructions
 
-### Prerequisites
-
-- Node.js 18+ 
-- Git
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
+1. Clone the repository
 ```bash
-git clone [repository-url]
-cd hk_site
+git clone https://github.com/yourusername/hk-site.git
+cd hk-site
 ```
 
-2. Install dependencies:
+2. Install dependencies
 ```bash
 npm install
-# or
-yarn install
 ```
 
-3. Create a `.env.local` file in the root directory:
-```env
-JWT_SECRET=your_super_secret_jwt_key_here_please_change_in_production
-NODE_ENV=development
+3. Generate Prisma client
+```bash
+npx prisma generate
 ```
 
-4. Run the development server:
+4. Create database and run migrations
+```bash
+npx prisma db push
+```
+
+5. Create admin user
+```bash
+npx ts-node scripts/create-admin.ts
+```
+
+6. Generate JWT Secret
+```bash
+npx ts-node scripts/generate-jwt-secret.ts
+```
+
+7. Run development server
 ```bash
 npm run dev
-# or
-yarn dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
-### Test Credentials
-
-- Email: admin@example.com
-- Password: password123
 
 ## Deployment
+- The site is configured for deployment on Vercel
+- Set environment variables in Vercel dashboard:
+  - `DATABASE_URL`
+  - `JWT_SECRET`
 
-### Deploy to Vercel (Recommended)
+## Login Credentials
+- Email: admin@example.com
+- Password: AdminPassword123!
 
-1. Push your code to GitHub
-2. Go to [Vercel](https://vercel.com)
-3. Import your GitHub repository
-4. Add environment variables in Vercel dashboard
-5. Deploy!
-
-### Manual Deployment
-
-1. Build the application:
-```bash
-npm run build
-```
-
-2. Start the production server:
-```bash
-npm start
-```
-
-## Contributing
-
-1. Create a new branch:
-```bash
-git checkout -b feature/your-feature-name
-```
-
-2. Make your changes and commit:
-```bash
-git add .
-git commit -m "Add your commit message"
-```
-
-3. Push to your branch:
-```bash
-git push origin feature/your-feature-name
-```
-
-4. Create a Pull Request on GitHub
-
-## Environment Variables
-
-- `JWT_SECRET`: Secret key for JWT token generation
-- `NODE_ENV`: Environment (development/production)
-
-## Project Structure
-
-```
-src/
-├── app/                 # Next.js app directory
-│   ├── (admin)/        # Admin routes
-│   ├── api/            # API routes
-│   └── ...
-├── components/         # React components
-├── lib/               # Utility functions
-└── middleware.ts      # Authentication middleware
-```
-
-## Security Considerations
-
-- JWT tokens are stored in HTTP-only cookies
-- CSRF protection enabled
-- Rate limiting implemented
-- Security headers configured
-- Input validation on all forms
+## Technologies
+- Next.js 14
+- Prisma
+- Tailwind CSS
+- TypeScript
+- JWT Authentication
+- Framer Motion
 
 ## License
-
-MIT License 
+MIT License

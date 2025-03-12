@@ -1,45 +1,30 @@
-import { createClient } from '@supabase/supabase-js';
-import bcrypt from 'bcryptjs';
+import { PrismaClient } from '@prisma/client';
+import { hash } from 'bcryptjs';
 
-const supabaseUrl = 'https://qfoxfvmgwnlchjzimcfu.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmb3hmdm1nd25sY2hqemltY2Z1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MTYyMjc3MSwiZXhwIjoyMDU3MTk4NzcxfQ.cBS-HyTDSqKPyWQcZMa4yp_r0U26tKZC7aBqKGNpIgg';
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+const prisma = new PrismaClient();
 
 async function createAdminUser() {
+  const email = 'admin@example.com';
+  const password = 'AdminPassword123!';
+
   try {
-    // First, delete any existing admin user
-    await supabase
-      .from('users')
-      .delete()
-      .eq('email', 'admin@example.com');
+    // Hash the password
+    const passwordHash = await hash(password, 10);
 
-    const hashedPassword = await bcrypt.hash('admin123', 10);
-    
-    const { data: user, error } = await supabase
-      .from('users')
-      .insert([
-        {
-          email: 'admin@example.com',
-          password: hashedPassword,
-          name: 'Admin User',
-          role: 'admin',
-        },
-      ])
-      .select()
-      .single();
+    // Create admin user
+    const admin = await prisma.admin.create({
+      data: {
+        email,
+        passwordHash
+      }
+    });
 
-    if (error) {
-      throw error;
-    }
-
-    console.log('Admin user created successfully:', user);
-    console.log('\nLogin credentials:');
-    console.log('Email: admin@example.com');
-    console.log('Password: admin123');
+    console.log('Admin user created successfully:', admin);
   } catch (error) {
     console.error('Error creating admin user:', error);
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
-createAdminUser(); 
+createAdminUser();
