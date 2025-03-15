@@ -60,7 +60,6 @@ export default function AdminLayout({
               </div>
               <div className="flex items-center space-x-4">
                 <NavLink href="/admin" exact>Dashboard</NavLink>
-                <NavLink href="/admin/posts">Posts</NavLink>
                 <NavLink href="/admin/services">Services</NavLink>
                 <NavLink href="/admin/messages">Messages</NavLink>
                 <button

@@ -26,11 +26,6 @@ const DynamicPartners = dynamic(() => import('@/components/Partners'), {
   ssr: true
 });
 
-const DynamicTestimonials = dynamic(() => import('@/components/Testimonials'), { 
-  loading: () => <LoadingSpinner />,
-  ssr: true
-});
-
 const DynamicContact = dynamic(() => import('@/components/Contact'), { 
   loading: () => <LoadingSpinner />,
   ssr: true
@@ -45,7 +40,6 @@ export default function Home() {
       <DynamicFeatures />
       <DynamicServices />
       <DynamicPartners />
-      <DynamicTestimonials />
       <DynamicContact />
     </main>
   );

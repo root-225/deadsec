@@ -39,12 +39,12 @@ export default function NewPostPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto py-8 px-4">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold">Create New Post</h1>
+          <h1 className="text-3xl font-bold text-gray-800">Create New Post</h1>
           <div className="flex items-center space-x-4">
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value as 'en' | 'fr')}
-              className="rounded-md border border-gray-300 px-3 py-2"
+              className="rounded-md border border-gray-300 px-3 py-2 bg-white shadow-sm focus:ring focus:ring-blue-500"
             >
               <option value="en">English</option>
               <option value="fr">Français</option>
@@ -52,7 +52,7 @@ export default function NewPostPage() {
             <button
               type="button"
               onClick={() => setShowPreview(!showPreview)}
-              className="px-4 py-2 text-blue-600 hover:text-blue-800"
+              className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md transition duration-200"
             >
               {showPreview ? 'Edit' : 'Preview'}
             </button>
@@ -69,7 +69,7 @@ export default function NewPostPage() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-lg shadow p-6">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium mb-1">
+              <label htmlFor="title" className="block text-sm font-medium mb-1 text-gray-700">
                 Title ({selectedLanguage.toUpperCase()})
               </label>
               <input
@@ -86,13 +86,13 @@ export default function NewPostPage() {
                     ? e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
                     : prev.slug
                 }))}
-                className="w-full rounded-md border border-gray-300 px-3 py-2"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-500"
                 required={selectedLanguage === 'en'}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-gray-700">
                 Content ({selectedLanguage.toUpperCase()})
               </label>
               <Editor
@@ -111,14 +111,14 @@ export default function NewPostPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-gray-700">
                 Featured Image
               </label>
               <div className="flex items-start space-x-4">
                 <button
                   type="button"
                   onClick={() => setShowMediaLibrary(true)}
-                  className="flex-1 px-4 py-2 border-2 border-dashed border-gray-300 rounded-md text-gray-600 hover:text-gray-900 hover:border-gray-400"
+                  className="flex-1 px-4 py-2 border-2 border-dashed border-gray-300 rounded-md text-gray-600 hover:text-gray-900 hover:border-gray-400 transition duration-200"
                 >
                   {formData.imageUrl ? 'Change Image' : 'Select Image'}
                 </button>
@@ -156,7 +156,7 @@ export default function NewPostPage() {
                   }))}
                   className="rounded border-gray-300"
                 />
-                <span className="ml-2 text-sm">Publish immediately</span>
+                <span className="ml-2 text-sm text-gray-700">Publish immediately</span>
               </label>
             </div>
 
@@ -170,7 +170,7 @@ export default function NewPostPage() {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
               >
                 Create Post
               </button>
@@ -193,7 +193,7 @@ export default function NewPostPage() {
               <button
                 type="button"
                 onClick={() => setShowMediaLibrary(false)}
-                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition duration-200"
               >
                 Cancel
               </button>
