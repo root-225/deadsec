@@ -6,22 +6,40 @@ import Image from 'next/image';
 import Editor from '@/components/admin/Editor';
 import MediaLibrary from '@/components/admin/MediaLibrary';
 import ContentPreview from '@/components/admin/ContentPreview';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function NewPostPage() {
   const router = useRouter();
   const [selectedLanguage, setSelectedLanguage] = useState<'en' | 'fr'>('en');
   const [showMediaLibrary, setShowMediaLibrary] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  
   const [formData, setFormData] = useState({
     title: { en: '', fr: '' },
+    excerpt: '',
     content: { en: '', fr: '' },
     slug: '',
     imageUrl: '',
-    isPublished: false
+    category: '',
+    tags: '',
+    status: 'draft',
   });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+
     try {
       const response = await fetch('/api/admin/posts', {
         method: 'POST',
@@ -30,51 +48,42 @@ export default function NewPostPage() {
       });
       if (!response.ok) throw new Error('Failed to create post');
       router.push('/admin/posts');
-    } catch (error) {
-      console.error('Error creating post:', error);
+    } catch (err) {
+      setError('Failed to create post. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto py-8 px-4">
+    <div className="min-h-screen bg-slate-900 text-white p-6">
+      <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Create New Post</h1>
-          <div className="flex items-center space-x-4">
-            <select
-              value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value as 'en' | 'fr')}
-              className="rounded-md border border-gray-300 px-3 py-2 bg-white shadow-sm focus:ring focus:ring-blue-500"
-            >
-              <option value="en">English</option>
-              <option value="fr">Français</option>
-            </select>
-            <button
-              type="button"
-              onClick={() => setShowPreview(!showPreview)}
-              className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md transition duration-200"
-            >
-              {showPreview ? 'Edit' : 'Preview'}
-            </button>
-          </div>
+          <h1 className="text-3xl font-bold">New Post</h1>
+          <button
+            onClick={() => router.push('/admin/dashboard')}
+            className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md transition-colors"
+          >
+            Back to Dashboard
+          </button>
         </div>
 
-        {showPreview ? (
-          <ContentPreview
-            title={formData.title}
-            content={formData.content}
-            imageUrl={formData.imageUrl}
-            selectedLanguage={selectedLanguage}
-          />
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-lg shadow p-6">
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 mb-6">
+            <p className="text-red-400">{error}</p>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="bg-slate-800/50 p-6 rounded-lg shadow-lg border border-slate-700">
+          <div className="space-y-6">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium mb-1 text-gray-700">
-                Title ({selectedLanguage.toUpperCase()})
+              <label htmlFor="title" className="block text-sm font-medium text-slate-300 mb-1">
+                Title <span className="text-red-400">*</span>
               </label>
               <input
                 type="text"
                 id="title"
+                name="title"
                 value={formData.title[selectedLanguage]}
                 onChange={(e) => setFormData(prev => ({
                   ...prev,
@@ -86,14 +95,31 @@ export default function NewPostPage() {
                     ? e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
                     : prev.slug
                 }))}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-500"
-                required={selectedLanguage === 'en'}
+                required
+                className="w-full rounded-md bg-slate-700/50 border-slate-600 text-white focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter post title"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
-                Content ({selectedLanguage.toUpperCase()})
+              <label htmlFor="excerpt" className="block text-sm font-medium text-slate-300 mb-1">
+                Excerpt <span className="text-red-400">*</span>
+              </label>
+              <textarea
+                id="excerpt"
+                name="excerpt"
+                value={formData.excerpt}
+                onChange={handleChange}
+                required
+                rows={2}
+                className="w-full rounded-md bg-slate-700/50 border-slate-600 text-white focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Brief summary of the post"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="content" className="block text-sm font-medium text-slate-300 mb-1">
+                Content <span className="text-red-400">*</span>
               </label>
               <Editor
                 value={formData.content[selectedLanguage]}
@@ -110,73 +136,97 @@ export default function NewPostPage() {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
-                Featured Image
-              </label>
-              <div className="flex items-start space-x-4">
-                <button
-                  type="button"
-                  onClick={() => setShowMediaLibrary(true)}
-                  className="flex-1 px-4 py-2 border-2 border-dashed border-gray-300 rounded-md text-gray-600 hover:text-gray-900 hover:border-gray-400 transition duration-200"
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="category" className="block text-sm font-medium text-slate-300 mb-1">
+                  Category <span className="text-red-400">*</span>
+                </label>
+                <select
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-md bg-slate-700/50 border-slate-600 text-white focus:ring-blue-500 focus:border-blue-500"
                 >
-                  {formData.imageUrl ? 'Change Image' : 'Select Image'}
-                </button>
-                {formData.imageUrl && (
-                  <div className="relative w-32 h-32">
-                    <Image
-                      src={formData.imageUrl}
-                      alt="Preview"
-                      fill
-                      className="object-cover rounded-md"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setFormData(prev => ({ 
-                        ...prev, 
-                        imageUrl: '' 
-                      }))}
-                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
-                    >
-                      ×
-                    </button>
-                  </div>
-                )}
+                  <option value="">Select a category</option>
+                  <option value="technology">Technology</option>
+                  <option value="business">Business</option>
+                  <option value="design">Design</option>
+                  <option value="development">Development</option>
+                  <option value="marketing">Marketing</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="tags" className="block text-sm font-medium text-slate-300 mb-1">
+                  Tags
+                </label>
+                <input
+                  type="text"
+                  id="tags"
+                  name="tags"
+                  value={formData.tags}
+                  onChange={handleChange}
+                  className="w-full rounded-md bg-slate-700/50 border-slate-600 text-white focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter tags separated by commas"
+                />
               </div>
             </div>
 
             <div>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={formData.isPublished}
-                  onChange={(e) => setFormData(prev => ({
-                    ...prev,
-                    isPublished: e.target.checked
-                  }))}
-                  className="rounded border-gray-300"
-                />
-                <span className="ml-2 text-sm text-gray-700">Publish immediately</span>
+              <label htmlFor="status" className="block text-sm font-medium text-slate-300 mb-1">
+                Status
               </label>
+              <div className="flex space-x-4">
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    name="status"
+                    value="draft"
+                    checked={formData.status === 'draft'}
+                    onChange={handleChange}
+                    className="text-blue-500 focus:ring-blue-500"
+                  />
+                  <span className="ml-2 text-slate-300">Draft</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    name="status"
+                    value="published"
+                    checked={formData.status === 'published'}
+                    onChange={handleChange}
+                    className="text-blue-500 focus:ring-blue-500"
+                  />
+                  <span className="ml-2 text-slate-300">Published</span>
+                </label>
+              </div>
             </div>
 
-            <div className="flex justify-end space-x-4 pt-4">
+            <div className="pt-4 flex justify-end space-x-4">
               <button
                 type="button"
-                onClick={() => router.back()}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900"
+                onClick={() => router.push('/admin/dashboard')}
+                className="px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-500 transition-colors"
+                disabled={isSubmitting}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center min-w-[100px]"
+                disabled={isSubmitting}
               >
-                Create Post
+                {isSubmitting ? (
+                  <LoadingSpinner size="sm" className="text-white" />
+                ) : (
+                  'Create Post'
+                )}
               </button>
             </div>
-          </form>
-        )}
+          </div>
+        </form>
       </div>
 
       {showMediaLibrary && (
