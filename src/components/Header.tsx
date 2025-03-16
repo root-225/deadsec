@@ -22,7 +22,6 @@ export default function Header() {
     { name: 'Home', href: '/' },
     { name: 'Services', href: '/services' },
     { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -34,7 +33,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-xl font-bold gradient-text">TechPro</span>
+            <span className="text-xl font-bold gradient-text">HK COMMUNITIES</span>
           </Link>
 
           {/* Desktop Navigation */}

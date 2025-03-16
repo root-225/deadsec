@@ -1,14 +1,13 @@
-# HK Site - Next.js Admin Dashboard
+# HK Site - Next.js Showcase Website
 
 ## Overview
-This is a full-featured admin dashboard built with Next.js 14, Prisma, and Tailwind CSS, featuring secure authentication and admin panel functionality.
+This is a modern showcase website built with Next.js 14 and Tailwind CSS, featuring a responsive design and direct email contact functionality.
 
 ## Features
-- Secure admin login system
-- JWT-based authentication
 - Responsive design with Tailwind CSS
-- Admin dashboard with metrics
-- SQLite database with Prisma ORM
+- Modern UI with animations
+- Direct email contact form
+- Fast performance with Next.js
 
 ## Prerequisites
 - Node.js (v18 or later)
@@ -27,27 +26,15 @@ cd hk-site
 npm install
 ```
 
-3. Generate Prisma client
-```bash
-npx prisma generate
+3. Set up environment variables
+Create a `.env.local` file with the following variables:
+```
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+PERSONAL_EMAIL=your_personal_email@example.com
 ```
 
-4. Create database and run migrations
-```bash
-npx prisma db push
-```
-
-5. Create admin user
-```bash
-npx ts-node scripts/create-admin.ts
-```
-
-6. Generate JWT Secret
-```bash
-npx ts-node scripts/generate-jwt-secret.ts
-```
-
-7. Run development server
+4. Run development server
 ```bash
 npm run dev
 ```
@@ -55,19 +42,21 @@ npm run dev
 ## Deployment
 - The site is configured for deployment on Vercel
 - Set environment variables in Vercel dashboard:
-  - `DATABASE_URL`
-  - `JWT_SECRET`
+  - `EMAIL_USER`
+  - `EMAIL_PASSWORD`
+  - `PERSONAL_EMAIL`
 
-## Login Credentials
-- Email: admin@example.com
-- Password: AdminPassword123!
+## Email Configuration
+For Gmail users, you'll need to:
+1. Enable 2-factor authentication
+2. Generate an app password
+3. Use that app password in the EMAIL_PASSWORD environment variable
 
 ## Technologies
 - Next.js 14
-- Prisma
 - Tailwind CSS
 - TypeScript
-- JWT Authentication
+- Nodemailer
 - Framer Motion
 
 ## License
