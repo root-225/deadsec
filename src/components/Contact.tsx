@@ -358,7 +358,7 @@ export default function Contact() {
                   </div>
                   <div className="ml-4">
                     <h4 className="text-lg font-medium text-slate-300">Phone</h4>
-                    <p className="mt-1 text-slate-400">+1 (555) 123-4567</p>
+                    <p className="mt-1 text-slate-400">+225 07 89 36 31 25</p>
                     <p className="mt-1 text-slate-400">Mon-Fri from 8am to 6pm</p>
                   </div>
                 </div>
@@ -389,8 +389,8 @@ export default function Contact() {
                   </div>
                   <div className="ml-4">
                     <h4 className="text-lg font-medium text-slate-300">Office</h4>
-                    <p className="mt-1 text-slate-400">123 Innovation Street</p>
-                    <p className="mt-1 text-slate-400">San Francisco, CA 94107</p>
+                    <p className="mt-1 text-slate-400">COCODY, ANGRE</p>
+                    <p className="mt-1 text-slate-400">Abidjan, Côte d'Ivoire</p>
                   </div>
                 </div>
               </div>
