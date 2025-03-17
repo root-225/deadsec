@@ -4,8 +4,9 @@ import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from '@/lib/ThemeContext';
 
-function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -17,7 +18,7 @@ function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <>
+    <ThemeProvider>
       <Toaster 
         position="top-right"
         toastOptions={{
@@ -31,8 +32,6 @@ function Providers({ children }: { children: React.ReactNode }) {
       {children}
       <SpeedInsights />
       <Analytics />
-    </>
+    </ThemeProvider>
   );
 }
-
-export default Providers;

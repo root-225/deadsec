@@ -1,3 +1,11 @@
+import { Metadata } from 'next';
+import Image from 'next/image';
+
+export const metadata: Metadata = {
+  title: 'À Propos | HK Consulting',
+  description: 'Découvrez notre histoire, notre mission et nos valeurs.',
+};
+
 export default function AboutPage() {
   return (
     <section className="relative py-20 overflow-hidden">
@@ -11,20 +19,20 @@ export default function AboutPage() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold gradient-text mb-4">About Us</h1>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            We are a team of passionate technologists dedicated to helping businesses thrive in the digital age.
+          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 gradient-text mb-4">À Propos de Nous</h1>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            Nous sommes une équipe de passionnés de technologie dédiée à aider les entreprises à prospérer à l'ère numérique.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-2xl font-semibold text-white mb-4">Our Story</h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">Notre Histoire</h2>
             <p className="text-slate-400 mb-4">
-              Founded in 2020, TechPro has been at the forefront of technological innovation. We started with a simple mission: to make cutting-edge technology accessible to businesses of all sizes.
+              Fondée en 2020, HK Consulting a été à l'avant-garde de l'innovation technologique. Nous avons commencé avec une mission simple : rendre les technologies de pointe accessibles aux entreprises de toutes tailles.
             </p>
             <p className="text-slate-400">
-              Today, we're proud to serve clients across various industries, helping them navigate the complex landscape of modern technology and digital transformation.
+              Aujourd'hui, nous sommes fiers de servir des clients dans divers secteurs, les aidant à naviguer dans le paysage complexe de la technologie moderne et de la transformation numérique.
             </p>
           </div>
           <div className="relative h-96">
@@ -34,24 +42,24 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-20">
-          <h2 className="text-2xl font-semibold text-white text-center mb-12">Our Values</h2>
+          <h2 className="text-2xl font-semibold text-white text-center mb-12">Nos Valeurs</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 bg-slate-800 rounded-lg">
               <h3 className="text-xl font-semibold text-white mb-4">Innovation</h3>
               <p className="text-slate-400">
-                We constantly push the boundaries of what's possible with technology.
+                Nous repoussons constamment les limites du possible avec la technologie.
               </p>
             </div>
             <div className="p-6 bg-slate-800 rounded-lg">
               <h3 className="text-xl font-semibold text-white mb-4">Excellence</h3>
               <p className="text-slate-400">
-                We strive for excellence in everything we do, from code quality to client service.
+                Nous nous efforçons d'atteindre l'excellence dans tout ce que nous faisons.
               </p>
             </div>
             <div className="p-6 bg-slate-800 rounded-lg">
-              <h3 className="text-xl font-semibold text-white mb-4">Integrity</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">Intégrité</h3>
               <p className="text-slate-400">
-                We maintain the highest standards of integrity and transparency in our work.
+                Nous maintenons les plus hauts standards d'intégrité et de transparence dans notre travail.
               </p>
             </div>
           </div>

@@ -30,27 +30,27 @@ export default function Contact() {
     const errors: Record<string, string> = {};
     
     if (!formData.name.trim()) {
-      errors.name = 'Name is required';
+      errors.name = 'Le nom est requis';
     }
     
     if (!formData.email.trim()) {
-      errors.email = 'Email is required';
+      errors.email = 'L\'email est requis';
     } else if (!validateEmail(formData.email)) {
-      errors.email = 'Please enter a valid email address';
+      errors.email = 'Veuillez entrer une adresse email valide';
     }
     
     if (!formData.subject) {
-      errors.subject = 'Please select a subject';
+      errors.subject = 'Veuillez sélectionner un sujet';
     }
     
     if (!formData.message.trim()) {
-      errors.message = 'Message is required';
+      errors.message = 'Le message est requis';
     } else if (formData.message.length < 10) {
-      errors.message = 'Message must be at least 10 characters';
+      errors.message = 'Le message doit contenir au moins 10 caractères';
     }
 
     if (formData.phone && !validatePhone(formData.phone)) {
-      errors.phone = 'Please enter a valid phone number';
+      errors.phone = 'Veuillez entrer un numéro de téléphone valide';
     }
 
     setFormErrors(errors);
@@ -79,19 +79,19 @@ export default function Contact() {
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          phone: formData.phone || 'Not provided',
+          phone: formData.phone || 'Non fourni',
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        throw new Error('Échec de l\'envoi du message');
       }
 
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '', subject: '', phone: '' });
       setCharacterCount(0);
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Erreur lors de l\'envoi du message:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -131,20 +131,14 @@ export default function Contact() {
   }, [formData]);
 
   return (
-    <section id="contact" className="relative py-20 bg-[#020617]">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] animated-bg"></div>
-      <div className="absolute inset-0 matrix-bg opacity-10"></div>
-
-      {/* Decorative Elements */}
-      <div className="absolute top-1/3 left-0 w-72 h-72 bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/3 right-0 w-72 h-72 bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold gradient-text sm:text-4xl mb-2">Contact Us</h2>
-          <div className="w-24 h-1 mx-auto bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
-          <p className="mt-4 text-lg text-slate-400">
-            Get in touch with our team to discuss your technology needs
+    <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-100 dark:bg-slate-800/30">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            Contactez-Nous
+          </h2>
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            Nous sommes là pour répondre à toutes vos questions et vous aider à transformer votre vision en réalité.
           </p>
         </div>
 
@@ -157,7 +151,7 @@ export default function Contact() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-1">
-                    Name <span className="text-red-400">*</span>
+                    Nom <span className="text-red-400">*</span>
                   </label>
                   <div className="relative">
                     <input
@@ -204,7 +198,7 @@ export default function Contact() {
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-1">
-                  Phone (Optional)
+                  Téléphone (Optionnel)
                 </label>
                 <div className="relative">
                   <input
@@ -213,7 +207,7 @@ export default function Contact() {
                     id="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="+225 XX XX XX XX XX"
                     className={`block w-full rounded-md bg-slate-800/50 border-slate-700 text-slate-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 transition-all duration-300 ${
                       formErrors.phone ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                     }`}
@@ -227,7 +221,7 @@ export default function Contact() {
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-1">
-                  Subject <span className="text-red-400">*</span>
+                  Sujet <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
                   <select
@@ -241,12 +235,12 @@ export default function Contact() {
                     required
                     disabled={isSubmitting}
                   >
-                    <option value="">Select a subject</option>
-                    <option value="general">General Inquiry</option>
-                    <option value="support">Technical Support</option>
-                    <option value="sales">Sales</option>
-                    <option value="partnership">Partnership</option>
-                    <option value="other">Other</option>
+                    <option value="">Sélectionnez un sujet</option>
+                    <option value="general">Renseignement Général</option>
+                    <option value="support">Support Technique</option>
+                    <option value="sales">Ventes</option>
+                    <option value="partnership">Partenariat</option>
+                    <option value="other">Autre</option>
                   </select>
                   {formErrors.subject && (
                     <p className="mt-1 text-sm text-red-400">{formErrors.subject}</p>
@@ -258,7 +252,7 @@ export default function Contact() {
                 <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-1">
                   Message <span className="text-red-400">*</span>
                   <span className="float-right text-xs text-slate-400">
-                    {characterCount} characters
+                    {characterCount} caractères
                   </span>
                 </label>
                 <div className="relative">
@@ -273,7 +267,7 @@ export default function Contact() {
                     }`}
                     required
                     disabled={isSubmitting}
-                    placeholder="Tell us about your project or inquiry..."
+                    placeholder="Parlez-nous de votre projet ou de votre demande..."
                   />
                   {formErrors.message && (
                     <p className="mt-1 text-sm text-red-400">{formErrors.message}</p>
@@ -287,7 +281,7 @@ export default function Contact() {
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    Message sent successfully! We'll get back to you soon.
+                    Message envoyé avec succès ! Nous vous répondrons bientôt.
                   </div>
                 </div>
               )}
@@ -298,7 +292,7 @@ export default function Contact() {
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    Failed to send message. Please try again.
+                    Échec de l'envoi du message. Veuillez réessayer.
                   </div>
                 </div>
               )}
@@ -314,7 +308,7 @@ export default function Contact() {
                   className="text-slate-400 hover:text-cyan-400 transition-colors text-sm"
                   disabled={isSubmitting}
                 >
-                  Clear Form
+                  Effacer le formulaire
                 </button>
 
                 <button
@@ -328,10 +322,10 @@ export default function Contact() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Sending...
+                      Envoi en cours...
                     </>
                   ) : (
-                    'Send Message'
+                    'Envoyer le message'
                   )}
                 </button>
               </div>
@@ -344,7 +338,7 @@ export default function Contact() {
             
             <div className="relative z-10">
               <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 mb-6">
-                Contact Information
+                Informations de Contact
               </h3>
               
               <div className="space-y-6">
@@ -357,9 +351,9 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <h4 className="text-lg font-medium text-slate-300">Phone</h4>
+                    <h4 className="text-lg font-medium text-slate-300">Téléphone</h4>
                     <p className="mt-1 text-slate-400">+225 07 89 36 31 25</p>
-                    <p className="mt-1 text-slate-400">Mon-Fri from 8am to 6pm</p>
+                    <p className="mt-1 text-slate-400">Lun-Ven de 8h à 18h</p>
                   </div>
                 </div>
                 
@@ -374,7 +368,7 @@ export default function Contact() {
                   <div className="ml-4">
                     <h4 className="text-lg font-medium text-slate-300">Email</h4>
                     <p className="mt-1 text-slate-400">root225r01@gmail.com</p>
-                    <p className="mt-1 text-slate-400">We'll respond as soon as possible</p>
+                    <p className="mt-1 text-slate-400">Nous répondons dans les plus brefs délais</p>
                   </div>
                 </div>
                 
@@ -388,7 +382,7 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <h4 className="text-lg font-medium text-slate-300">Office</h4>
+                    <h4 className="text-lg font-medium text-slate-300">Bureau</h4>
                     <p className="mt-1 text-slate-400">COCODY, ANGRE</p>
                     <p className="mt-1 text-slate-400">Abidjan, Côte d'Ivoire</p>
                   </div>
@@ -398,7 +392,7 @@ export default function Contact() {
             
             <div className="mt-10 relative z-10">
               <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 mb-6">
-                Follow Us
+                Suivez-Nous
               </h3>
               <div className="flex space-x-4">
                 <a href="#" className="text-slate-400 hover:text-white transition-colors">

@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "analyze": "ANALYZE=true next build",
+    "prepare-images": "node src/scripts/prepare-images.js",
+    "export": "next build && next export",
+    "deploy:vercel": "vercel",
+    "deploy:netlify": "netlify deploy --prod"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",

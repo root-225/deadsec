@@ -1,188 +1,190 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import Image from 'next/image';
+import { getAvatarPlaceholder } from '@/lib/avatarUtils';
 
-const testimonials = [
-  {
-    name: 'Sarah Johnson',
-    role: 'CTO at TechCorp',
-    image: '/testimonials/sarah.jpg',
-    content: 'The team at HK Solutions transformed our digital infrastructure. Their expertise in cloud computing and AI solutions helped us achieve unprecedented growth.',
-    rating: 5,
-    category: 'Cloud Computing'
-  },
-  {
-    name: 'Michael Chen',
-    role: 'Product Manager at InnovateTech',
-    image: '/testimonials/michael.jpg',
-    content: 'Working with HK Solutions was a game-changer for our product development. Their innovative approach and technical excellence are unmatched.',
-    rating: 5,
-    category: 'AI & ML'
-  },
-  {
-    name: 'Emma Davis',
-    role: 'Director of Operations at GlobalTech',
-    image: '/testimonials/emma.jpg',
-    content: 'The level of professionalism and technical expertise demonstrated by HK Solutions is exceptional. They delivered beyond our expectations.',
-    rating: 5,
-    category: 'Digital Transformation'
-  }
-];
-
-const categories = ['All', 'Cloud Computing', 'AI & ML', 'Digital Transformation'];
+type Testimonial = {
+  id: number;
+  name: string;
+  position: string;
+  company: string;
+  testimonial: string;
+  avatar?: string;
+};
 
 export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const testimonials: Testimonial[] = [
+    {
+      id: 1,
+      name: 'Alexandre Couture',
+      position: 'Directeur Technique',
+      company: 'TechSolutions',
+      testimonial: "L'équipe de HK Consulting a transformé notre infrastructure cloud, ce qui nous a permis de réduire nos coûts de 30% tout en améliorant nos performances.",
+    },
+    {
+      id: 2,
+      name: 'Marie Lefebvre',
+      position: 'CEO',
+      company: 'InnovateNow',
+      testimonial: "Leur expertise en IA nous a permis de développer des solutions innovantes qui ont révolutionné notre approche client. Un partenaire de confiance.",
+    },
+    {
+      id: 3,
+      name: 'Thomas Dubois',
+      position: 'Responsable Sécurité',
+      company: 'SecureData',
+      testimonial: "Depuis que nous avons fait appel à HK Consulting pour notre cybersécurité, nous n'avons eu aucune intrusion. Leur approche proactive nous offre une tranquillité d'esprit.",
+    },
+    {
+      id: 4,
+      name: 'Sophie Moreau',
+      position: 'Directrice Marketing',
+      company: 'DigitalGrowth',
+      testimonial: "La transformation digitale menée par HK Consulting a permis à notre entreprise d'augmenter son engagement client de 45% et nos conversions de 25%. Résultats exceptionnels!",
+    }
+  ];
 
-  const filteredTestimonials = useMemo(() => {
-    return testimonials.filter(testimonial => {
-      const matchesSearch = testimonial.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        testimonial.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        testimonial.role.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === 'All' || testimonial.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchTerm, selectedCategory]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [autoplay, setAutoplay] = useState(true);
 
   const nextTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredTestimonials.length);
+    setDirection(1);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + filteredTestimonials.length) % filteredTestimonials.length);
+    setDirection(-1);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
   };
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (autoplay) {
+      interval = setInterval(() => {
+        nextTestimonial();
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [autoplay, testimonials.length]);
+
+  const handleMouseEnter = () => setAutoplay(false);
+  const handleMouseLeave = () => setAutoplay(true);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+  };
+
+  const currentTestimonial = testimonials[currentIndex];
+  const avatarUrl = currentTestimonial.avatar || getAvatarPlaceholder(currentTestimonial.name);
+
   return (
-    <section className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] animated-bg"></div>
-      <div className="absolute inset-0 matrix-bg opacity-10"></div>
-
-      {/* Decorative Elements */}
-      <div className="absolute top-1/3 left-0 w-72 h-72 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/3 right-0 w-72 h-72 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold gradient-text mb-4">What Our Clients Say</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            Discover how we've helped businesses transform their digital presence and achieve remarkable growth.
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-100 dark:bg-slate-800/30">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            Ce Que Disent Nos Clients
+          </h2>
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            Découvrez pourquoi nos clients nous font confiance pour leurs besoins technologiques.
           </p>
         </div>
 
-        {/* Search and Filter */}
-        <div className="max-w-2xl mx-auto mb-12 space-y-6">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search testimonials..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-800 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-            <svg
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                    : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative">
-          <AnimatePresence mode="wait">
-            {filteredTestimonials.length > 0 ? (
+        <div 
+          className="relative"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="h-[400px] md:h-[300px] relative overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-lg">
+            <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="tech-card p-8 md:p-12 max-w-3xl mx-auto"
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 },
+                }}
+                className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center"
               >
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-gradient">
-                    <img
-                      src={filteredTestimonials[currentIndex].image}
-                      alt={filteredTestimonials[currentIndex].name}
-                      className="w-full h-full object-cover"
+                <FaQuoteLeft className="text-blue-500 dark:text-blue-400 h-10 w-10 mb-6" />
+                <p className="text-slate-700 dark:text-slate-200 text-lg md:text-xl italic mb-8">
+                  "{currentTestimonial.testimonial}"
+                </p>
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 h-14 w-14 rounded-full bg-slate-200 dark:bg-slate-700 mr-4 overflow-hidden">
+                    <img 
+                      src={avatarUrl}
+                      alt={`Avatar of ${currentTestimonial.name}`}
+                      className="h-full w-full object-cover"
                     />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white">{filteredTestimonials[currentIndex].name}</h3>
-                    <p className="text-slate-400">{filteredTestimonials[currentIndex].role}</p>
-                    <span className="text-sm text-purple-400">{filteredTestimonials[currentIndex].category}</span>
+                    <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                      {currentTestimonial.name}
+                    </h4>
+                    <p className="text-slate-600 dark:text-slate-300">
+                      {currentTestimonial.position}, {currentTestimonial.company}
+                    </p>
                   </div>
                 </div>
-
-                <div className="flex mb-6">
-                  {[...Array(filteredTestimonials[currentIndex].rating)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className="w-5 h-5 text-yellow-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.363 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-
-                <blockquote className="text-lg text-slate-300 italic">
-                  "{filteredTestimonials[currentIndex].content}"
-                </blockquote>
               </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-12"
-              >
-                <p className="text-slate-400">No testimonials found matching your search criteria.</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            </AnimatePresence>
+          </div>
 
-          {filteredTestimonials.length > 0 && (
-            <div className="flex justify-center mt-8 space-x-4">
+          <div className="absolute inset-y-0 left-0 flex items-center">
+            <button
+              onClick={prevTestimonial}
+              className="p-2 rounded-full bg-white dark:bg-slate-700 shadow-md text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none transform -translate-x-1/2"
+              aria-label="Previous testimonial"
+            >
+              <FaChevronLeft className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="absolute inset-y-0 right-0 flex items-center">
+            <button
+              onClick={nextTestimonial}
+              className="p-2 rounded-full bg-white dark:bg-slate-700 shadow-md text-slate-700 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none transform translate-x-1/2"
+              aria-label="Next testimonial"
+            >
+              <FaChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          <div className="absolute -bottom-4 left-0 right-0 flex justify-center space-x-2">
+            {testimonials.map((_, index) => (
               <button
-                onClick={prevTestimonial}
-                className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-slate-700 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={nextTestimonial}
-                className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-slate-700 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          )}
+                key={index}
+                onClick={() => {
+                  setDirection(index > currentIndex ? 1 : -1);
+                  setCurrentIndex(index);
+                }}
+                className={`h-3 w-3 rounded-full focus:outline-none ${
+                  index === currentIndex
+                    ? 'bg-blue-500'
+                    : 'bg-slate-300 dark:bg-slate-600'
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

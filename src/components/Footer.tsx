@@ -7,10 +7,9 @@ import { motion } from 'framer-motion';
 export default function Footer() {
   const navigation = {
     main: [
-      { name: 'Home', href: '/' },
-      { name: 'Services', href: '/services' },
-      { name: 'About', href: '/about' },
-      { name: 'Blog', href: '/blog' },
+      { name: 'Accueil', href: '/' },
+      { name: 'Services', href: '/services-list' },
+      { name: 'À propos', href: '/about' },
       { name: 'Contact', href: '/contact' },
     ],
     social: [
@@ -38,12 +37,12 @@ export default function Footer() {
       },
       {
         name: 'LinkedIn',
-        href: 'https://www.linkedin.com/in/karl-joseph-tiemele/',
+        href: 'https://www.linkedin.com/in/kone-tiemongo',
         icon: (props: any) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
               fillRule="evenodd"
-              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-.88-.06-1.601-1-1.601-1 0-1.16.781-1.16 1.601v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+              d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"
               clipRule="evenodd"
             />
           </svg>
@@ -79,7 +78,7 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-              Quick Links
+              Liens Rapides
             </h3>
             <ul className="mt-4 space-y-4">
               {navigation.main.map((item) => (
@@ -102,23 +101,23 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-4">
               <li>
-                <Link href="/services#cloud" className="text-base text-slate-400 hover:text-white transition-colors">
-                  Cloud Solutions
+                <Link href="/services/cloud" className="text-base text-slate-400 hover:text-white transition-colors">
+                  Services Cloud
                 </Link>
               </li>
               <li>
-                <Link href="/services#ai" className="text-base text-slate-400 hover:text-white transition-colors">
-                  AI & Machine Learning
+                <Link href="/services/ai" className="text-base text-slate-400 hover:text-white transition-colors">
+                  Intelligence Artificielle
                 </Link>
               </li>
               <li>
-                <Link href="/services#security" className="text-base text-slate-400 hover:text-white transition-colors">
-                  Cybersecurity
+                <Link href="/services/security" className="text-base text-slate-400 hover:text-white transition-colors">
+                  Cybersécurité
                 </Link>
               </li>
               <li>
-                <Link href="/services#digital" className="text-base text-slate-400 hover:text-white transition-colors">
-                  Digital Transformation
+                <Link href="/services/digital" className="text-base text-slate-400 hover:text-white transition-colors">
+                  Transformation Digitale
                 </Link>
               </li>
             </ul>
@@ -126,31 +125,24 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-slate-300 tracking-wider uppercase">
               Contact
             </h3>
-            <ul className="mt-4 space-y-4">
+            <ul className="mt-4 space-y-2">
               <li>
                 <a 
-                  href="mailto:contact@hkcommunities.com" 
-                  className="text-base text-slate-400 hover:text-white transition-colors flex items-center gap-2"
+                  href="mailto:root225r01@gmail.com" 
+                  className="text-slate-400 hover:text-cyan-400 transition-colors"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  contact@hkcommunities.com
+                  root225r01@gmail.com
                 </a>
               </li>
-              <li>
-                <a 
-                  href="tel:+123456789" 
-                  className="text-base text-slate-400 hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  +123 456 789
-                </a>
+              <li className="text-slate-400">
+                +225 07 89 36 31 25
+              </li>
+              <li className="text-slate-400">
+                COCODY, ANGRE<br />
+                Abidjan, Côte d'Ivoire
               </li>
             </ul>
           </div>
@@ -163,7 +155,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <motion.a
-                href="https://www.linkedin.com/in/karl-joseph-tiemele/"
+                href="https://www.linkedin.com/in/kone-tiemongo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-[#0077b5] transition-colors"
@@ -172,7 +164,7 @@ export default function Footer() {
               >
                 <span className="sr-only">LinkedIn</span>
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-.88-.06-1.601-1-1.601-1 0-1.16.781-1.16 1.601v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" clipRule="evenodd" />
                 </svg>
               </motion.a>
               <motion.a

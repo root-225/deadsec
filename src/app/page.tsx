@@ -5,6 +5,10 @@ import dynamic from 'next/dynamic';
 import Header from '../components/Header';
 import Hero from '@/components/Hero';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import Features from '@/components/Features';
+import Services from '@/components/Services';
+import Testimonials from '@/components/Testimonials';
+import Contact from '@/components/Contact';
 
 const DynamicStats = dynamic(() => import('@/components/Stats'), { 
   loading: () => <LoadingSpinner />,
@@ -37,10 +41,11 @@ export default function Home() {
       <Header />
       <Hero />
       <DynamicStats />
-      <DynamicFeatures />
-      <DynamicServices />
+      <Features />
+      <Services />
+      <Testimonials />
       <DynamicPartners />
-      <DynamicContact />
+      <Contact />
     </main>
   );
 }
