@@ -25,25 +25,25 @@ export const contactInfo = {
 export const socialLinks = [
   {
     name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/your-linkedin',
+    url: 'https://www.linkedin.com/in/karl-joseph-tiemele/',
     icon: FaLinkedin,
     color: 'hover:text-blue-500'
   },
   {
     name: 'GitHub',
-    url: 'https://github.com/your-github',
+    url: 'https://github.com/root-225',
     icon: FaGithub,
     color: 'hover:text-gray-400'
   },
   {
     name: 'Twitter',
-    url: 'https://twitter.com/your-twitter',
+    url: 'https://twitter.com/root7132_',
     icon: FaTwitter,
     color: 'hover:text-blue-400'
   },
   {
     name: 'YouTube',
-    url: 'https://youtube.com/your-youtube',
+    url: 'https://youtube.com/@root7132',
     icon: FaYoutube,
     color: 'hover:text-red-500'
   }

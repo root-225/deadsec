@@ -1,6 +1,6 @@
-# Guide des Services HK Consulting
+# Guide des Services deadsec
 
-Ce document présente les différents types de services offerts par HK Consulting et explique comment personnaliser ou ajouter de nouveaux services au site web.
+Ce document présente les différents types de services offerts par deadsec et explique comment personnaliser ou ajouter de nouveaux services au site web.
 
 ## Services Actuels
 
@@ -105,7 +105,7 @@ import { FiCheck } from 'react-icons/fi';
 // Importez les icônes spécifiques à votre service
 
 export const metadata: Metadata = {
-  title: 'Nom du Service | HK Consulting',
+  title: 'Nom du Service | deadsec',
   description: 'Description concise du service',
 };
 
@@ -268,4 +268,4 @@ Pour une personnalisation plus avancée, vous pouvez créer des composants spéc
 2. Intégrez ce composant dans la page du service AI
 3. Développez les fonctionnalités interactives spécifiques à ce service
 
-Cela permet d'ajouter des fonctionnalités uniques à certains services tout en maintenant une structure cohérente pour l'ensemble du site. 
+Cela permet d'ajouter des fonctionnalités uniques à certains services tout en maintenant une structure cohérente pour l'ensemble du site.

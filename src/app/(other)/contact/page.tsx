@@ -3,8 +3,8 @@ import Contact from '@/components/Contact';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact | HK COMMUNITIES',
-  description: 'Contactez HK COMMUNITIES pour discuter de vos besoins en technologie et solutions digitales.',
+  title: 'Contact | deadsec',
+  description: 'Contactez deadsec pour discuter de vos besoins en technologie et solutions digitales.',
 };
 
 export default function ContactPage() {
@@ -13,4 +13,4 @@ export default function ContactPage() {
       <Contact />
     </div>
   );
-} 
+}

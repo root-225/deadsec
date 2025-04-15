@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { FaLaptopCode, FaMobileAlt, FaChartBar, FaUsers, FaRocket } from 'react-icons/fa';
 
 export const metadata: Metadata = {
-  title: 'Transformation Digitale | HK Consulting',
+  title: 'Transformation Digitale | deadsec',
   description: 'Accompagnement dans votre transition numérique pour rester compétitif.',
 };
 
@@ -152,4 +152,4 @@ export default function DigitalServicePage() {
       </section>
     </div>
   );
-} 
+}

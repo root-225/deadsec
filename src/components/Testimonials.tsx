@@ -22,7 +22,7 @@ export default function Testimonials() {
       name: 'Alexandre Couture',
       position: 'Directeur Technique',
       company: 'TechSolutions',
-      testimonial: "L'équipe de HK Consulting a transformé notre infrastructure cloud, ce qui nous a permis de réduire nos coûts de 30% tout en améliorant nos performances.",
+      testimonial: "L'équipe de deadsec a transformé notre infrastructure cloud, ce qui nous a permis de réduire nos coûts de 30% tout en améliorant nos performances.",
     },
     {
       id: 2,
@@ -36,14 +36,14 @@ export default function Testimonials() {
       name: 'Thomas Dubois',
       position: 'Responsable Sécurité',
       company: 'SecureData',
-      testimonial: "Depuis que nous avons fait appel à HK Consulting pour notre cybersécurité, nous n'avons eu aucune intrusion. Leur approche proactive nous offre une tranquillité d'esprit.",
+      testimonial: "Depuis que nous avons fait appel à deadsec pour notre cybersécurité, nous n'avons eu aucune intrusion. Leur approche proactive nous offre une tranquillité d'esprit.",
     },
     {
       id: 4,
       name: 'Sophie Moreau',
       position: 'Directrice Marketing',
       company: 'DigitalGrowth',
-      testimonial: "La transformation digitale menée par HK Consulting a permis à notre entreprise d'augmenter son engagement client de 45% et nos conversions de 25%. Résultats exceptionnels!",
+      testimonial: "La transformation digitale menée par deadsec a permis à notre entreprise d'augmenter son engagement client de 45% et nos conversions de 25%. Résultats exceptionnels!",
     }
   ];
 
@@ -189,4 +189,4 @@ export default function Testimonials() {
       </div>
     </section>
   );
-} 
+}

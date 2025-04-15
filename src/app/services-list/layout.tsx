@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Nos Services | HK Consulting',
+  title: 'Nos Services | deadsec',
   description: 'Découvrez nos services professionnels en cloud, sécurité, IA et transformation digitale.',
 };
 
@@ -21,4 +21,4 @@ export default function ServicesListLayout({
       <Footer />
     </div>
   );
-} 
+}

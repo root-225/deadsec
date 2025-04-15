@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'À Propos | HK Consulting',
+  title: 'À Propos | deadsec',
   description: 'Découvrez notre histoire, notre mission et nos valeurs.',
 };
 
@@ -29,7 +29,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-2xl font-semibold text-white mb-4">Notre Histoire</h2>
             <p className="text-slate-400 mb-4">
-              Fondée en 2020, HK Consulting a été à l'avant-garde de l'innovation technologique. Nous avons commencé avec une mission simple : rendre les technologies de pointe accessibles aux entreprises de toutes tailles.
+              Fondée en 2020, deadsec a été à l'avant-garde de l'innovation technologique. Nous avons commencé avec une mission simple : rendre les technologies de pointe accessibles aux entreprises de toutes tailles.
             </p>
             <p className="text-slate-400">
               Aujourd'hui, nous sommes fiers de servir des clients dans divers secteurs, les aidant à naviguer dans le paysage complexe de la technologie moderne et de la transformation numérique.
@@ -67,4 +67,4 @@ export default function AboutPage() {
       </div>
     </section>
   );
-} 
+}

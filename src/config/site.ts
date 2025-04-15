@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: 'HK Communities',
+  name: 'deadsec',
   description: 'Empowering businesses through innovative technology solutions and digital transformation.',
   contact: {
     phone: {
@@ -16,9 +16,9 @@ export const siteConfig = {
     }
   },
   social: {
-    linkedin: 'https://www.linkedin.com/in/your-linkedin',
-    github: 'https://github.com/your-github',
-    twitter: 'https://twitter.com/your-twitter',
-    youtube: 'https://youtube.com/your-youtube'
+    linkedin: 'https://www.linkedin.com/in/karl-joseph-tiemele/',
+    github: 'https://github.com/root-225',
+    twitter: 'https://x.com/root7132_',
+    youtube: 'https://www.youtube.com/@root7132'
   }
 };

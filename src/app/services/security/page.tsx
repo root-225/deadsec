@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { FaShieldAlt, FaLock, FaUserShield, FaEye, FaServer } from 'react-icons/fa';
 
 export const metadata: Metadata = {
-  title: 'Services de Sécurité | HK Consulting',
+  title: 'Services de Sécurité | deadsec',
   description: 'Protection complète de vos données et systèmes contre les menaces modernes.',
 };
 
@@ -152,4 +152,4 @@ export default function SecurityServicePage() {
       </section>
     </div>
   );
-} 
+}

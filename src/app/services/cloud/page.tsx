@@ -5,7 +5,7 @@ import { FaCloud, FaServer, FaLock, FaSync, FaChartLine } from 'react-icons/fa';
 import ServicePagePlaceholder from '@/components/ServicePagePlaceholder';
 
 export const metadata: Metadata = {
-  title: 'Services Cloud | HK Consulting',
+  title: 'Services Cloud | deadsec',
   description: 'Solutions cloud personnalisées pour optimiser vos opérations et réduire les coûts.',
 };
 
@@ -151,4 +151,4 @@ export default function CloudServicePage() {
       </section>
     </div>
   );
-} 
+}

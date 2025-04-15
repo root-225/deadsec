@@ -61,18 +61,18 @@ export default function Logo({
           {/* Gradient Definition */}
           <defs>
             <linearGradient id="logoGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#3182CE" />
-              <stop offset="100%" stopColor="#7649C6" />
+              <stop offset="0%" stopColor="#CECECE" />
+              <stop offset="100%" stopColor="#000000" />
             </linearGradient>
           </defs>
         </svg>
       </motion.div>
       
       {withText && (
-        <span className={`ml-2 font-bold ${textClass} bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400`}>
-          HK COMMUNITIES
+        <span className={`ml-2 font-bold ${textClass} bg-clip-text text-transparent bg-gradient-to-r from-[#CECECE] to-[#000000]`}>
+          deadsec
         </span>
       )}
     </Link>
   );
-} 
+}

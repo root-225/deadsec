@@ -52,7 +52,7 @@ export default function Hero() {
             className="inline-block"
           >
             <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mb-6">
-              HK Communities
+              deadsec
             </h1>
           </motion.div>
 

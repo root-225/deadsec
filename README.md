@@ -1,6 +1,6 @@
-# HK Consulting Website
+# deadsec Website
 
-A modern, responsive website for HK Consulting showcasing services in cloud computing, AI, cybersecurity, and digital transformation.
+A modern, responsive website for deadsec showcasing services in cloud computing, AI, cybersecurity, and digital transformation.
 
 ## 🚀 Features
 
@@ -82,7 +82,7 @@ For optimal performance and user experience, follow these guidelines when adding
    - `/public/images/services/` - Service-related images
    - `/public/images/team/` - Team member photos
    - `/public/images/blog/` - Blog post images
-   - `/public/images/general/` - General website images
+   - `/public/images/general/》 - General website images
 
 2. Use Next.js Image component for optimal loading:
 
@@ -116,7 +116,7 @@ The project includes powerful image utilities to help you manage and optimize im
 node src/scripts/downloadImage.js https://example.com/image.jpg public/images/services/cloud-service.jpg --width=600 --height=400
 ```
 
-2. **Batch Image Processing**:
+2. **Batch Image Processing":
 ```bash
 npm run prepare-images
 ```
@@ -242,7 +242,7 @@ This project can be deployed on Vercel, Netlify, or any other Next.js compatible
    - Connect your GitHub repository to Vercel
    - Vercel will automatically detect Next.js and configure the build settings
 
-2. **Netlify**:
+2. **Netlify":
    - Connect your GitHub repository to Netlify
    - Set build command to `npm run build` and publish directory to `out`
 

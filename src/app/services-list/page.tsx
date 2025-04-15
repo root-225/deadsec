@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FaCloud, FaShieldAlt, FaRobot, FaLaptopCode } from 'react-icons/fa';
 
 export const metadata: Metadata = {
-  title: 'Nos Services | HK Consulting',
+  title: 'Nos Services | deadsec',
   description: 'Découvrez nos services professionnels en cloud, sécurité, IA et transformation digitale.',
 };
 
@@ -121,4 +121,4 @@ export default function ServicesListPage() {
       </div>
     </div>
   );
-} 
+}

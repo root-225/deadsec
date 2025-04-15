@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-md' : 'bg-transparent'
+      isScrolled ? 'bg-[#000000]/80 backdrop-blur-md' : 'bg-transparent'
     }`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -46,8 +46,8 @@ export default function Header() {
                 href={item.href}
                 className={`text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? 'text-white dark:text-white'
-                    : 'text-slate-300 hover:text-white dark:text-slate-300 dark:hover:text-white'
+                    ? 'text-[#FFFFFF]'
+                    : 'text-[#CECECE] hover:text-[#FFFFFF]'
                 }`}
               >
                 {item.name}
@@ -57,7 +57,7 @@ export default function Header() {
             {/* Theme Toggle Button */}
             <button 
               onClick={toggleTheme}
-              className="flex items-center justify-center h-8 w-8 rounded-md text-slate-300 hover:text-white transition-colors focus:outline-none"
+              className="flex items-center justify-center h-8 w-8 rounded-md text-[#CECECE] hover:text-[#FFFFFF] transition-colors focus:outline-none"
               aria-label={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
             >
               {theme === 'dark' ? (
@@ -72,7 +72,7 @@ export default function Header() {
             {/* Mobile Theme Toggle Button */}
             <button 
               onClick={toggleTheme}
-              className="flex items-center justify-center h-8 w-8 rounded-md text-slate-300 hover:text-white transition-colors focus:outline-none"
+              className="flex items-center justify-center h-8 w-8 rounded-md text-[#CECECE] hover:text-[#FFFFFF] transition-colors focus:outline-none"
               aria-label={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
             >
               {theme === 'dark' ? (
@@ -84,7 +84,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800"
+              className="p-2 rounded-md text-[#CECECE] hover:text-[#FFFFFF] hover:bg-[#000000]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <svg
@@ -121,7 +121,7 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-slate-900/95 dark:bg-slate-900/95 backdrop-blur-md"
+            className="md:hidden bg-[#000000]/95 backdrop-blur-md"
           >
             <div className="px-4 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
@@ -130,8 +130,8 @@ export default function Header() {
                   href={item.href}
                   className={`block px-3 py-2 rounded-md text-base font-medium ${
                     pathname === item.href
-                      ? 'text-white dark:text-white bg-slate-800'
-                      : 'text-slate-300 hover:text-white dark:text-slate-300 dark:hover:text-white hover:bg-slate-800'
+                      ? 'text-[#FFFFFF] bg-[#000000]'
+                      : 'text-[#CECECE] hover:text-[#FFFFFF] hover:bg-[#000000]'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -144,4 +144,4 @@ export default function Header() {
       </AnimatePresence>
     </header>
   );
-} 
+}

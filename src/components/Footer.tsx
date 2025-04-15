@@ -37,7 +37,7 @@ export default function Footer() {
       },
       {
         name: 'LinkedIn',
-        href: 'https://www.linkedin.com/in/kone-tiemongo',
+        href: 'https://www.linkedin.com/in/karl-joseph-tiemele/',
         icon: (props: any) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
@@ -62,22 +62,22 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-900/95 backdrop-blur-sm border-t border-slate-800">
+    <footer className="bg-[#000000] backdrop-blur-sm border-t border-[#ABA8A8]">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1">
-            <Link href="/" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
-              HK Communities
+            <Link href="/" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#CECECE] to-[#E8E8E8]">
+              deadsec
             </Link>
-            <p className="mt-4 text-sm text-slate-400">
+            <p className="mt-4 text-sm text-[#CECECE]">
               Solutions innovantes informatiques pour développer votre business en le digitalisant et en investissant dans sa sécurité en ligne.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-[#FFFFFF] tracking-wider uppercase">
               Liens Rapides
             </h3>
             <ul className="mt-4 space-y-4">
@@ -85,7 +85,7 @@ export default function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-base text-slate-400 hover:text-white transition-colors"
+                    className="text-base text-[#CECECE] hover:text-[#FFFFFF] transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -96,27 +96,27 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-[#FFFFFF] tracking-wider uppercase">
               Services
             </h3>
             <ul className="mt-4 space-y-4">
               <li>
-                <Link href="/services/cloud" className="text-base text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/cloud" className="text-base text-[#CECECE] hover:text-[#FFFFFF] transition-colors">
                   Services Cloud
                 </Link>
               </li>
               <li>
-                <Link href="/services/ai" className="text-base text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/ai" className="text-base text-[#CECECE] hover:text-[#FFFFFF] transition-colors">
                   Intelligence Artificielle
                 </Link>
               </li>
               <li>
-                <Link href="/services/security" className="text-base text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/security" className="text-base text-[#CECECE] hover:text-[#FFFFFF] transition-colors">
                   Cybersécurité
                 </Link>
               </li>
               <li>
-                <Link href="/services/digital" className="text-base text-slate-400 hover:text-white transition-colors">
+                <Link href="/services/digital" className="text-base text-[#CECECE] hover:text-[#FFFFFF] transition-colors">
                   Transformation Digitale
                 </Link>
               </li>
@@ -125,22 +125,22 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-300 tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-[#FFFFFF] tracking-wider uppercase">
               Contact
             </h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <a 
                   href="mailto:root225r01@gmail.com" 
-                  className="text-slate-400 hover:text-cyan-400 transition-colors"
+                  className="text-[#CECECE] hover:text-[#E8E8E8] transition-colors"
                 >
                   root225r01@gmail.com
                 </a>
               </li>
-              <li className="text-slate-400">
+              <li className="text-[#CECECE]">
                 +225 07 89 36 31 25
               </li>
-              <li className="text-slate-400">
+              <li className="text-[#CECECE]">
                 COCODY, ANGRE<br />
                 Abidjan, Côte d'Ivoire
               </li>
@@ -148,17 +148,17 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-slate-800 pt-8">
+        <div className="mt-12 border-t border-[#ABA8A8] pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-base text-slate-400">
-              {new Date().getFullYear()} HK Communities. All rights reserved.
+            <p className="text-base text-[#CECECE]">
+              {new Date().getFullYear()} deadsec. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <motion.a
-                href="https://www.linkedin.com/in/kone-tiemongo"
+                href="https://www.linkedin.com/in/karl-joseph-tiemele/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-[#0077b5] transition-colors"
+                className="text-[#CECECE] hover:text-[#E8E8E8] transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -171,7 +171,7 @@ export default function Footer() {
                 href="https://github.com/root-225"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-[#333] transition-colors"
+                className="text-[#CECECE] hover:text-[#E8E8E8] transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -184,7 +184,7 @@ export default function Footer() {
                 href="https://x.com/root7132_"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-[#1DA1F2] transition-colors"
+                className="text-[#CECECE] hover:text-[#E8E8E8] transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -197,7 +197,7 @@ export default function Footer() {
                 href="https://www.youtube.com/@root7132"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-[#FF0000] transition-colors"
+                className="text-[#CECECE] hover:text-[#E8E8E8] transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
