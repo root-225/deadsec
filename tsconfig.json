@@ -6,10 +6,18 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
+    "outDir": "./dist", // Specify output directory for compiled JS
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "commonjs", // Keep commonjs for Node compatibility
+    "types": ["node"],
     "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",

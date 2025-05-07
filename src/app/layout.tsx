@@ -2,6 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/components/Providers';
+import Header from '@/components/Header'; // Ajout de l'importation
+import Footer from '@/components/Footer'; // Ajout de l'importation
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,9 +39,11 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-[#000000] text-[#FFFFFF] transition-colors duration-200`}>
         <Providers>
+          <Header /> {/* Ajout du Header */}
           <main className="antialiased bg-[#000000] text-[#FFFFFF] min-h-screen">
             {children}
           </main>
+          <Footer /> {/* Ajout du Footer */}
         </Providers>
       </body>
     </html>

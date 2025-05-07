@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import dbConnect from '@/config/mongodb';
+import ContactSubmission from '@/models/ContactSubmission';
 
 export const runtime = 'nodejs';
 
@@ -24,6 +26,16 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    // Connect to MongoDB and save submission
+    await dbConnect();
+    const submission = await ContactSubmission.create({
+      name,
+      email,
+      subject,
+      message,
+      phone
+    });
     
     // Create email content
     const mailOptions = {
@@ -68,4 +80,4 @@ ${message}
       { status: 500 }
     );
   }
-} 
+}
