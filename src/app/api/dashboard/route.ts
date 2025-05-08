@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { dbConnect } from '@/lib/dbClient';
+import dbConnect from '@/config/mongodb';
 import User from '@/models/User';
-import Service from '@/models/Service';
+// import Service from '@/models/Service';
 import ContactSubmission from '@/models/ContactSubmission';
 
 // Middleware for admin authentication would be added here
@@ -15,8 +15,8 @@ export async function GET() {
     const activeUsers = await User.countDocuments({ status: 'active' });
     
     // Fetch service statistics
-    const totalServices = await Service.countDocuments();
-    const activeServices = await Service.countDocuments({ status: 'active' });
+    // const totalServices = await Service.countDocuments();
+    // const activeServices = await Service.countDocuments({ status: 'active' });
     
     // Fetch contact submissions
     const totalSubmissions = await ContactSubmission.countDocuments();
@@ -32,8 +32,8 @@ export async function GET() {
           active: activeUsers
         },
         services: {
-          total: totalServices,
-          active: activeServices
+          total: 0,
+          active: 0
         },
         submissions: {
           total: totalSubmissions,

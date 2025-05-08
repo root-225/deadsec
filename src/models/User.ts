@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, models, model } from "mongoose";
 export interface IUser extends Document {
   name: string;
   email: string;
-  password?: string; // Optional during creation, required for login
+  password: string;
   isAdmin?: boolean;
   createdAt: Date;
 }
