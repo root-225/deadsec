@@ -19,8 +19,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeProvider>
-      <div suppressHydrationWarning>
-        <Toaster 
+      <Toaster 
         position="top-right"
         toastOptions={{
           style: {
@@ -32,8 +31,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       />
       {children}
       <SpeedInsights />
-        <Analytics />
-      </div>
+      <Analytics />
     </ThemeProvider>
   );
 }

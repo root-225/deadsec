@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { Providers } from '@/components/Providers';
 import Header from '@/components/Header'; // Ajout de l'importation
 import Footer from '@/components/Footer'; // Ajout de l'importation
+import MaterialIcons from '@/components/MaterialIcons';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,12 +33,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="dark" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-      </head>
+      
       <body className={`${inter.className} bg-[#000000] text-[#FFFFFF] transition-colors duration-200`}>
+        <MaterialIcons />
         <Providers>
           <Header /> {/* Ajout du Header */}
           <main className="antialiased bg-[#000000] text-[#FFFFFF] min-h-screen">
