@@ -38,7 +38,7 @@ export default function RegistrationManagement() {
   const [viewingRegistration, setViewingRegistration] = useState<Registration | null>(null);
 
   const statusOptions = ['all', 'pending', 'approved', 'rejected', 'waiting'];
-  const formationOptions = ['all', 'Cybersécurité', 'Bureautique'];
+  const formationOptions = ['all', 'Cybersécurité', 'Bureautique', 'Intelligence Artificielle'];
 
   useEffect(() => {
     fetchRegistrations();

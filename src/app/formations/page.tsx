@@ -1,12 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { FaLaptopCode, FaKeyboard } from 'react-icons/fa'; // Import icons
+import { FaLaptopCode, FaKeyboard, FaBrain } from 'react-icons/fa'; // Import icons
 import Contact from '@/components/Contact';
 
 export const metadata: Metadata = {
   title: 'Nos Formations | deadsec',
-  description: 'Découvrez nos formations en cybersécurité et bureautique.',
+  description: 'Découvrez nos formations en cybersécurité, bureautique et intelligence artificielle.',
 };
 
 const formations = [
@@ -22,6 +22,12 @@ const formations = [
     href: '/formations/bureautique',
     icon: <FaKeyboard className="w-8 h-8 mb-4 text-blue-600 dark:text-blue-400" /> // Add icon
   },
+  {
+    title: 'Formation Intelligence Artificielle',
+    description: 'Maîtrisez les technologies IA et développez des solutions intelligentes.',
+    href: '/formations/intelligence-artificielle',
+    icon: <FaBrain className="w-8 h-8 mb-4 text-blue-600 dark:text-blue-400" /> // Add icon
+  },
 ];
 
 export default function FormationsLandingPage() {
@@ -34,7 +40,7 @@ export default function FormationsLandingPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10"> {/* Increased gap */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"> {/* Increased gap */}
         {formations.map((formation) => (
           <Link key={formation.title} href={formation.href} passHref>
             {/* Removed empty lines */}
