@@ -5,6 +5,7 @@ export interface IInscription extends Document {
   email: string;
   phone?: string;
   formation: string; // To specify which formation the inscription is for
+  status: 'pending' | 'approved' | 'rejected' | 'waiting';
   createdAt: Date;
 }
 
@@ -31,6 +32,11 @@ const InscriptionSchema: Schema = new Schema({
     required: [true, 'La formation est requise'],
     trim: true,
     default: 'Cybersécurité', // Default to Cybersecurity for now, can be made dynamic
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'approved', 'rejected', 'waiting'],
+    default: 'pending',
   },
   createdAt: {
     type: Date,
