@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '@/config/mongodb';
-import Inscription from '@/models/Inscription';
+import { executeQuery } from '@/config/database';
 
 export async function POST(request: NextRequest) {
   try {
-    await dbConnect();
-
     const body = await request.json();
     const { name, email, phone, formation } = body;
 
@@ -20,33 +17,48 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Format d\'email invalide' }, { status: 400 });
     }
 
-    const newInscription = new Inscription({
-      name,
-      email,
-      phone: phone || undefined, // Store phone only if provided
-      formation,
-    });
+    // Insert into MySQL database
+    const query = `
+      INSERT INTO inscriptions (name, email, phone, formation)
+      VALUES (?, ?, ?, ?)
+    `;
+    
+    const result = await executeQuery(query, [name, email, phone || null, formation]);
 
-    await newInscription.save();
-
-    return NextResponse.json({ message: 'Inscription réussie !', inscription: newInscription }, { status: 201 });
+    return NextResponse.json({ 
+      message: 'Inscription réussie !', 
+      inscription: { id: (result as any).insertId, name, email, phone, formation }
+    }, { status: 201 });
 
   } catch (error: any) {
     console.error('Erreur API Inscription:', error);
-    // Handle potential validation errors from Mongoose
-    if (error.name === 'ValidationError') {
-      let errors: { [key: string]: string } = {};
-      Object.keys(error.errors).forEach((key) => {
-        errors[key] = error.errors[key].message;
-      });
-      return NextResponse.json({ message: 'Erreur de validation', errors }, { status: 400 });
+    
+    // Handle duplicate email error
+    if (error.code === 'ER_DUP_ENTRY') {
+      return NextResponse.json({ 
+        message: 'Cette adresse email est déjà inscrite pour cette formation' 
+      }, { status: 400 });
     }
-    return NextResponse.json({ message: 'Erreur serveur lors de l\'inscription', error: error.message }, { status: 500 });
+    
+    return NextResponse.json({ 
+      message: 'Erreur serveur lors de l\'inscription', 
+      error: error.message 
+    }, { status: 500 });
   }
 }
 
 // Optional: GET method to retrieve inscriptions (requires authentication/authorization)
-// export async function GET(request: NextRequest) {
-//   // Implement logic to get inscriptions, ensuring proper security
-//   return NextResponse.json({ message: 'GET method not implemented yet' });
-// }
+export async function GET(request: NextRequest) {
+  try {
+    const query = 'SELECT * FROM inscriptions ORDER BY created_at DESC';
+    const inscriptions = await executeQuery(query);
+    
+    return NextResponse.json({ inscriptions }, { status: 200 });
+  } catch (error: any) {
+    console.error('Error fetching inscriptions:', error);
+    return NextResponse.json({ 
+      message: 'Error fetching inscriptions', 
+      error: error.message 
+    }, { status: 500 });
+  }
+}

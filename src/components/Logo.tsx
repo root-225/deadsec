@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type LogoProps = {
   size?: 'sm' | 'md' | 'lg';
@@ -39,33 +40,14 @@ export default function Logo({
         className="relative"
         style={{ width, height }}
       >
-        <svg 
-          width={width} 
-          height={height} 
-          viewBox="0 0 100 100" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Background circle */}
-          <circle cx="50" cy="50" r="48" fill="url(#logoGradient)" />
-          
-          {/* HK Letters */}
-          <path 
-            d="M30 25V75M30 50H50M50 25V75M70 25V75M70 50H90" 
-            stroke="white" 
-            strokeWidth="8" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-          />
-          
-          {/* Gradient Definition */}
-          <defs>
-            <linearGradient id="logoGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#CECECE" />
-              <stop offset="100%" stopColor="#000000" />
-            </linearGradient>
-          </defs>
-        </svg>
+        <Image
+          src="/images/general/Deadsec_logo.png"
+          alt="deadsec logo"
+          width={width}
+          height={height}
+          className="object-contain"
+          priority
+        />
       </motion.div>
       
       {withText && (

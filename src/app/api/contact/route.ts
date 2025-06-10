@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import dbConnect from '@/config/mongodb';
-import ContactSubmission from '@/models/ContactSubmission';
+import { executeQuery } from '@/config/database';
 
 export const runtime = 'nodejs';
 
 // Replace with your email service credentials
-const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransporter({
   service: 'gmail', // Change this to your email service
   auth: {
     user: process.env.EMAIL_USER || 'your-email@gmail.com',
@@ -27,15 +26,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Connect to MongoDB and save submission
-    await dbConnect();
-    const submission = await ContactSubmission.create({
-      name,
-      email,
-      subject,
-      message,
-      phone
-    });
+    // Save to MySQL database
+    const query = `
+      INSERT INTO contact_submissions (name, email, subject, message, phone)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+    
+    await executeQuery(query, [name, email, subject, message, phone || null]);
     
     // Create email content
     const mailOptions = {
