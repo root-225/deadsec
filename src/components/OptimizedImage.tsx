@@ -65,7 +65,7 @@ export default function OptimizedImage({
         height={!fill && height ? height : undefined}
         className={`${className} ${isLoading ? 'blur-sm scale-105' : 'blur-0 scale-100'} transition-all duration-500`}
         priority={priority}
-        onLoadingComplete={() => setIsLoading(false)}
+        onLoad={() => setIsLoading(false)}
         onError={() => {
           setIsLoading(false);
           setError(true);
