@@ -19,7 +19,6 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "@types/nodemailer": "^6.4.17",
-    
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "bcryptjs": "^2.4.3",
@@ -27,11 +26,9 @@
     "dotenv": "^16.5.0",
     "framer-motion": "^12.5.0",
     "jsonwebtoken": "^9.0.1",
-    
     "mysql2": "^3.6.5",
     "next": "14.1.0",
     "nodemailer": "^6.10.0",
-    
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.5.2",
@@ -40,8 +37,8 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^9.0.2",
-    "@types/node": "^20.17.32",
-    "@types/react": "^18.2.0",
+    "@types/node": "20.19.0",
+    "@types/react": "18.3.23",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
@@ -50,6 +47,6 @@
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.8.3"
+    "typescript": "5.8.3"
   }
 }
